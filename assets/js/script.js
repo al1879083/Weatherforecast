@@ -1,4 +1,6 @@
+//////////////////////////////////////////////////////////////////////////////////////
 //////                         Globals                                          //////
+//////////////////////////////////////////////////////////////////////////////////////
 
 // Store the elements related to the city search.
 var citySearch = document.querySelector(".city-search");
@@ -19,18 +21,20 @@ var currentUVIndex = document.getElementById("UV-index");
 // Our key to access the openWeatherAPI.
 const API_KEY = "3e489ce8dda72471348fca8795447d05";
 
-//////                          Main                                            //////
 
+//////////////////////////////////////////////////////////////////////////////////////
+//////                          Main                                            //////
+//////////////////////////////////////////////////////////////////////////////////////
 
 
 // When the search button is clicked.
 searchBTN.addEventListener("click", function(){
-    storeSearch();
     apiCalls(citySearch.value);
 })
-// When the search bar is clicked into. 
-citySearch.addEventListener("focus", function() {
-    //Clear any previous text.
+
+// When the search bar is clicked into.
+citySearch.addEventListener("focus", function(){
+    // Clear any previous text.
     citySearch.value = "";
 })
 
@@ -42,26 +46,33 @@ clearBTN.addEventListener("click", function(){
         historyContainer.removeChild(historyContainer.firstChild);
     }
 })
-// When the page loads/reloads
-window.addEventListener("load", function() {
-    //Get the list of cities from local storage.
-    var entry = JSON.parsel(localStorage.getItem("searchHistory"))
-    //If the list is not null make the history the list from storage.
-    //if the list is null make the history blank.
+
+// When the page loads/reloads.
+window.addEventListener("load", function(){
+    // Get the list of cities from local storage.
+    var entry = JSON.parse(localStorage.getItem("searchHistory"))
+    // If the list is not null make the history the list from storage.
+    // If the list is null make the history blank.
     searchHistory = (entry)? entry : [];
 
-    //Create the new elements for each item in history. 
-    for (i = 0; i < searchHistory.length; i++) {
+    // Create the new elements for each item in history.
+    for (i = 0; i < searchHistory.length; i++){
         createEle(searchHistory[i]);
     }
-    //Call the API for the most recently added city. 
-    if (entry) {
-        apiCalls(searchHistory[searchHistory.length - 1]); 
+    // Call the API for the most recently added city.
+    if (entry){
+        apiCalls(searchHistory[searchHistory.length - 1]);
     }
 })
 
 
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
 //////                        Functions                                         //////
+//////////////////////////////////////////////////////////////////////////////////////
 
 // Used to call the openWeather API.
 function apiCalls(city){

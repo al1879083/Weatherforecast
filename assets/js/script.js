@@ -28,6 +28,11 @@ searchBTN.addEventListener("click", function(){
     storeSearch();
     apiCalls(citySearch.value);
 })
+// When the search bar is clicked into. 
+citySearch.addEventListener("focus", function() {
+    //Clear any previous text.
+    citySearch.value = "";
+})
 
 // Clear the search history.
 clearBTN.addEventListener("click", function(){
@@ -37,7 +42,13 @@ clearBTN.addEventListener("click", function(){
         historyContainer.removeChild(historyContainer.firstChild);
     }
 })
-
+// When the page loads/reloads
+window.addEventListener("load", function() {
+    //Get the list of cities from local storage.
+    var entry = JSON.parsel(localStorage.getItem("searchHistory"))
+    //If the list is not null make the history the list from storage.
+    //if the list is null make the history blank.
+    searchHistory = (entry)? entry : [];
 
 
 //////                        Functions                                         //////

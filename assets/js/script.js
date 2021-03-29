@@ -50,6 +50,16 @@ window.addEventListener("load", function() {
     //if the list is null make the history blank.
     searchHistory = (entry)? entry : [];
 
+    //Create the new elements for each item in history. 
+    for (i = 0; i < searchHistory.length; i++) {
+        createEle(searchHistory[i]);
+    }
+    //Call the API for the most recently added city. 
+    if (entry) {
+        apiCalls(searchHistory[searchHistory.length - 1]); 
+    }
+})
+
 
 //////                        Functions                                         //////
 

@@ -84,6 +84,8 @@ function apiCalls(city){
             // Log all of the data from our API call.
             console.log(data);
 
+            storeSearch(city);
+
             // Set the URL for the weather icon.
             var weatherIcon = data['current']['weather']['0']['icon'];
             var iconURL="https://openweathermap.org/img/wn/"+weatherIcon +"@2x.png";
@@ -97,6 +99,24 @@ function apiCalls(city){
             currentHumid.textContent = data['current']['humidity'] + "%";
             currentWindSpeed.textContent = data['current']['wind_speed'] + "mph";
             currentUVIndex.textContent = data['current']['uvi'];
+
+            //Logic for the UV index indicator
+            var uvi = data['current']['uvi'];
+            var uviIndicator = ""
+            //These tags use bootstrap to change the color of the UV index element.
+            if (uvi <= 2) {
+                uviIndicator = "bg-success";
+            } else if (uvi > 2 && uvi <= 5) {
+                uviIndicator = "bg-warning";
+            } else if (uvi > 5) {
+                uviIndicator = "bg-danger";
+            }
+            //Remove any of the tags from previous searches.
+            currentUVIndex.classList.remove("bg-success");
+            currentUVIndex.classList.remove("bg-warning");
+            currentUVIndex.classList.remove("bg-danger");
+            }
+            }
         })
     })
 }
